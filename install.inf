@@ -7,19 +7,19 @@ homepage=https://github.com/kvichans/cuda_comments
 
 [item11]
 section=commands
-caption=Comments\Comments: Toggle line comment, at line start
+caption=Comments\Toggle line comment, at line start
 method=cmt_toggle_line_1st
 ;menu=0
 
 [item12]
 section=commands
-caption=Comments\Comments: Toggle line comment, at non-space char
+caption=Comments\Toggle line comment, at non-space char
 method=cmt_toggle_line_body
 ;menu=0
 
 [item21]
 section=commands
-caption=Comments\Comments: Toggle stream comment
+caption=Comments\Toggle stream comment
 method=cmt_toggle_stream
 ;menu=0
 
@@ -30,13 +30,13 @@ method=_
 
 [item31]
 section=commands
-caption=Comments\Comments: Config stream comments for lexer
+caption=Comments\Config stream comments for lexer
 method=edit_strcomment_chars
 ;menu=0
 
 [item41]
 section=commands
-caption=Comments\Comments: Config
+caption=Comments\Config
 method=dlg_config
 ;menu=0
 

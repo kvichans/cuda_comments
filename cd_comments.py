@@ -92,8 +92,9 @@ class Command:
         at_min_bd   = apx.get_opt('comment_equal_column'        , False)
         bUseFLn     = apx.get_opt('comment_full_line_if_no_sel' , True)
         bSkip       = apx.get_opt('comment_move_down'           , True)
-        save_s      = _('Line "at start" and "at non-space": try to save non-space text column')
-        save_h      = _('Try to replace blank(s) to save text:'
+        
+        save_s      = _('(Line commands) Try to save char positions in line after (un)commenting')
+        save_h      = _('Try to replace blank(s) to save text positions:'
                         '\rUncommented lines:'
                         '\r····foo1'
                         '\r····foo2'
@@ -101,7 +102,7 @@ class Command:
                         '\r#···foo1'
                         '\r···#foo2'
                         )
-        vert_s      = _('Line "at non-space": use same column to comment in all lines')         
+        vert_s      = _('(Line "at non-space") If selected few lines, insert comment at maximal common indent')         
         vert_h      = _('Use max same column to comment:'
                         '\rUncommented lines:'
                         '\r··foo1'
@@ -112,15 +113,15 @@ class Command:
                         '\r·#··foo2'
                         '\r·#····foo3'
                         )         
-        full_s      = _('Stream: comment full line if no selection')                            
-        down_s      = _('All: Move caret to next line')                                         
-        aid,vals,chds   = dlg_wrapper(_('Config commenting commands'), 510, 135,     #NOTE: dlg-cmnt
-             [dict(cid='save',tp='ch'   ,t=5    ,l=5    ,w=500      ,cap=save_s ,hint=save_h) # 
-             ,dict(cid='vert',tp='ch'   ,t=5+25 ,l=5    ,w=500      ,cap=vert_s ,hint=vert_h) # 
-             ,dict(cid='full',tp='ch'   ,t=5+50 ,l=5    ,w=500      ,cap=full_s             ) # 
-             ,dict(cid='down',tp='ch'   ,t=5+75 ,l=5    ,w=500      ,cap=down_s             ) # 
-             ,dict(cid='!'   ,tp='bt'   ,t=105  ,l=510-165-5,w=80   ,cap=_('OK'),props='1'                                                          ) #     default
-             ,dict(cid='-'   ,tp='bt'   ,t=105  ,l=510 -80-5,w=80   ,cap=_('Cancel')                                                                )
+        full_s      = _('(Stream) Comment full line if no selection')                            
+        down_s      = _('(All) Move caret to next line')                                         
+        aid,vals,chds   = dlg_wrapper(_('Config commenting commands'), 610, 135,     #NOTE: dlg-cmnt
+             [dict(cid='save',tp='ch'   ,t=5    ,l=5    ,w=600      ,cap=save_s ,hint=save_h) # 
+             ,dict(cid='vert',tp='ch'   ,t=5+25 ,l=5    ,w=600      ,cap=vert_s ,hint=vert_h) # 
+             ,dict(cid='full',tp='ch'   ,t=5+50 ,l=5    ,w=600      ,cap=full_s             ) # 
+             ,dict(cid='down',tp='ch'   ,t=5+75 ,l=5    ,w=600      ,cap=down_s             ) # 
+             ,dict(cid='!'   ,tp='bt'   ,t=105  ,l=610-165-5,w=80   ,cap=_('OK'),props='1'                                                          ) #     default
+             ,dict(cid='-'   ,tp='bt'   ,t=105  ,l=610 -80-5,w=80   ,cap=_('Cancel')                                                                )
              ], dict(save=save_bd_col
                     ,vert=at_min_bd
                     ,full=bUseFLn
