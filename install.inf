@@ -1,0 +1,37 @@
+[info]
+title=Comments
+desc=Commands to toggle comments
+type=cudatext-plugin
+subdir=cuda_comments
+homepage=https://github.com/kvichans/cuda_comments
+
+[item10]
+section=commands
+caption=Comments: Edit stream comment chars for lexer
+method=edit_strcomment_chars
+menu=0
+
+[item20]
+section=commands
+caption=Comments: Config
+method=dlg_config
+menu=0
+
+[item21]
+section=commands
+caption=Comments: toggle line comment, at line start
+method=cmt_toggle_line_1st
+menu=0
+
+[item22]
+section=commands
+caption=Comments: toggle line comment, at non-space char
+method=cmt_toggle_line_body
+menu=0
+
+[item23]
+section=commands
+caption=Comments: toggle stream comment
+method=cmt_toggle_stream
+menu=0
+
