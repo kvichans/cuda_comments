@@ -1,4 +1,4 @@
-﻿''' Plugin for CudaText editor
+''' Plugin for CudaText editor
 Authors:
     Andrey Kvichansky    (kvichans on github.com)
 Version:
@@ -22,7 +22,7 @@ class Command:
     def __init__(self):
         self.pair4lex = {}
         #def __init__
-    
+
     def edit_strcomment_chars(self):
         lex     = ed.get_prop(app.PROP_LEXER_CARET)
         if not lex: return app.msg_status(_("No lexer"))
@@ -60,10 +60,10 @@ class Command:
             btn,vals,chds   = dlg_wrapper(f(_('Stream comment chars for lexer "{}"'), lex), GAP*3+100+165*2, GAP+105+GAP,     #NOTE: dlg-str-cmnt
                  [dict(           tp='lb'   ,t=GAP          ,l=GAP+100+GAP+165  ,w=165  ,cap=_('Default values')    ) #
                  ,dict(           tp='lb'   ,tid='stcs'     ,l=GAP              ,w=100  ,cap=_('&Start chars')      ) # &s
-                 ,dict(cid='stcs',tp='ed'   ,t=GAP+20       ,l=GAP+100          ,w=165                              ) # 
+                 ,dict(cid='stcs',tp='ed'   ,t=GAP+20       ,l=GAP+100          ,w=165                              ) #
                  ,dict(cid='stdf',tp='ed'   ,tid='stcs'     ,l=GAP+100+GAP+165  ,w=165  ,props='1,0,1'              ) #     ro,mono,border
                  ,dict(           tp='lb'   ,tid='encs'     ,l=GAP              ,w=100  ,cap=_('&Finish chars')     ) # &f
-                 ,dict(cid='encs',tp='ed'   ,t=GAP+50       ,l=GAP+100          ,w=165                              ) # 
+                 ,dict(cid='encs',tp='ed'   ,t=GAP+50       ,l=GAP+100          ,w=165                              ) #
                  ,dict(cid='endf',tp='ed'   ,tid='encs'     ,l=GAP+100+GAP+165  ,w=165  ,props='1,0,1'              ) #     ro,mono,border
                  ,dict(cid='full',tp='ch'   ,t=GAP+80       ,l=GAP+100          ,w=165  ,cap=_('Only f&ull lines')  ) # &u
                  ,dict(cid='!'   ,tp='bt'   ,tid='full'     ,l=GAP+GAP+430-165  ,w=80   ,cap=_('OK'),props='1'      ) #     default
@@ -77,22 +77,22 @@ class Command:
             if not pair[0] or not pair[1]:
                 app.msg_box(USE_NOT_EMPTY, app.MB_OK)
                 continue #while
-            break #while 
+            break #while
            #while
-           
+
         #Saving
         usr_lexs["Comments"         if only_ln else "CommentsForLines"].pop(lex, None)
         usr_lexs["CommentsForLines" if only_ln else "Comments"        ][lex] = pair
         open(usr_lexs_json, 'w').write(json.dumps(usr_lexs, indent=2))
         app.msg_status(f(_('File "{}" is updated'), usr_lexs_json))
        #def edit_strcomment_chars
-    
+
     def dlg_config(self):
         save_bd_col = apx.get_opt('comment_save_column'         , False)
         at_min_bd   = apx.get_opt('comment_equal_column'        , False)
         bUseFLn     = apx.get_opt('comment_full_line_if_no_sel' , True)
         bSkip       = apx.get_opt('comment_move_down'           , True)
-        
+
         save_s      = _('(Line commands) Try to save char positions in line after (un)commenting')
         save_h      = _('Try to replace blank(s) to save text positions:'
                         '\rUncommented lines:'
@@ -102,7 +102,7 @@ class Command:
                         '\r#···foo1'
                         '\r···#foo2'
                         )
-        vert_s      = _('(Line "at non-space") If selected few lines, insert comment at maximal common indent')         
+        vert_s      = _('(Line "at non-space") If selected few lines, insert comment at maximal common indent')
         vert_h      = _('Use max same column to comment:'
                         '\rUncommented lines:'
                         '\r··foo1'
@@ -112,14 +112,14 @@ class Command:
                         '\r·#foo1'
                         '\r·#··foo2'
                         '\r·#····foo3'
-                        )         
-        full_s      = _('(Stream) Comment full line if no selection')                            
-        down_s      = _('(All) Move caret to next line')                                         
+                        )
+        full_s      = _('(Stream) Comment full line if no selection')
+        down_s      = _('(All) Move caret to next line')
         aid,vals,chds   = dlg_wrapper(_('Config commenting commands'), 610, 135,     #NOTE: dlg-cmnt
-             [dict(cid='save',tp='ch'   ,t=5    ,l=5    ,w=600      ,cap=save_s ,hint=save_h) # 
-             ,dict(cid='vert',tp='ch'   ,t=5+25 ,l=5    ,w=600      ,cap=vert_s ,hint=vert_h) # 
-             ,dict(cid='full',tp='ch'   ,t=5+50 ,l=5    ,w=600      ,cap=full_s             ) # 
-             ,dict(cid='down',tp='ch'   ,t=5+75 ,l=5    ,w=600      ,cap=down_s             ) # 
+             [dict(cid='save',tp='ch'   ,t=5    ,l=5    ,w=600      ,cap=save_s ,hint=save_h) #
+             ,dict(cid='vert',tp='ch'   ,t=5+25 ,l=5    ,w=600      ,cap=vert_s ,hint=vert_h) #
+             ,dict(cid='full',tp='ch'   ,t=5+50 ,l=5    ,w=600      ,cap=full_s             ) #
+             ,dict(cid='down',tp='ch'   ,t=5+75 ,l=5    ,w=600      ,cap=down_s             ) #
              ,dict(cid='!'   ,tp='bt'   ,t=105  ,l=610-165-5,w=80   ,cap=_('OK'),props='1'                                                          ) #     default
              ,dict(cid='-'   ,tp='bt'   ,t=105  ,l=610 -80-5,w=80   ,cap=_('Cancel')                                                                )
              ], dict(save=save_bd_col
@@ -133,12 +133,12 @@ class Command:
         if vals['full'] != bUseFLn:     apx.set_opt('comment_full_line_if_no_sel',vals['full'])
         if vals['down'] != bSkip:       apx.set_opt('comment_move_down'         , vals['down'])
        #def dlg_config
-    
+
     def cmt_toggle_line_1st(self):
-        return self._cmt_toggle_line('1st')
+        return self._cmt_toggle_line('tog', '1st')
     def cmt_toggle_line_body(self):
-        return self._cmt_toggle_line('bod')
-    def _cmt_toggle_line(self, cmt_type, ed_=ed):
+        return self._cmt_toggle_line('tog', 'bod')
+    def _cmt_toggle_line(self, cmt_mode, cmt_type, ed_=ed):
         ''' Add/Remove full line comment
             Params
                 cmt_type    '1st'    at begin of line
@@ -172,7 +172,15 @@ class Command:
             rWrks       = list(range(rSelBgn, rSelEnd+1))
         if not rWrks:
             rWrks       = [crts[0][1]]
-        do_uncmt    = ed_.get_text_line(rWrks[0]).lstrip().startswith(cmt_sgn)
+        # Detect mode
+        if cmt_mode == 'add':
+            do_uncmt = False
+        elif cmt_mode == 'rm':
+            do_uncmt = True
+        elif cmt_mode == 'tog':
+            do_uncmt = ed_.get_text_line(rWrks[0]).lstrip().startswith(cmt_sgn)
+        else:
+            raise ValueError('Unknown cmt_mode')
         # Work
         save_bd_col = apx.get_opt('comment_save_column' , False)
         at_min_bd   = apx.get_opt('comment_equal_column', False)
@@ -365,7 +373,7 @@ class Command:
         return self.pair4lex[lex]
        #def _get_cmt_pair
 
-    
+
 '''
 ToDo
 [ ][kv-kv][13sep16] Start
