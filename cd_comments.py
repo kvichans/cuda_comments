@@ -135,14 +135,23 @@ class Command:
        #def dlg_config
     
     def cmt_toggle_line_1st(self):
-        return self._cmt_toggle_line('1st')
+        return self._cmt_toggle_line('bgn', '1st')
+    def cmt_add_line_1st(self):
+        return self._cmt_toggle_line('add', '1st')
     def cmt_toggle_line_body(self):
-        return self._cmt_toggle_line('bod')
-    def _cmt_toggle_line(self, cmt_type, ed_=ed):
+        return self._cmt_toggle_line('bgn', 'bod')
+    def cmt_add_line_body(self):
+        return self._cmt_toggle_line('add', 'bod')
+    def cmt_del_line(self):
+        return self._cmt_toggle_line('del')
+    def _cmt_toggle_line(self, cmt_act, cmt_type='', ed_=ed):
         ''' Add/Remove full line comment
             Params
-                cmt_type    '1st'    at begin of line
-                            'bod'    at first not blank
+                cmt_act     'del'   uncomment all lines
+                            'add'   comment all lines
+                            'bgn'   (un)comment all as toggled first line 
+                cmt_type    '1st'   at begin of line
+                            'bod'   at first not blank
         '''
         if not apx._check_API('1.0.108'):    return
         lex         = ed_.get_prop(app.PROP_LEXER_CARET)
@@ -172,7 +181,11 @@ class Command:
             rWrks       = list(range(rSelBgn, rSelEnd+1))
         if not rWrks:
             rWrks       = [crts[0][1]]
-        do_uncmt    = ed_.get_text_line(rWrks[0]).lstrip().startswith(cmt_sgn)
+        do_uncmt    = ed_.get_text_line(rWrks[0]).lstrip().startswith(cmt_sgn) \
+                        if cmt_act=='bgn' else \
+                      True \
+                        if cmt_act=='del' else \
+                      False
         # Work
         save_bd_col = apx.get_opt('comment_save_column' , False)
         at_min_bd   = apx.get_opt('comment_equal_column', False)

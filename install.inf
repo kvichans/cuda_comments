@@ -19,8 +19,20 @@ method=cmt_toggle_line_body
 
 [item21]
 section=commands
-caption=Comments\Toggle stream comment
-method=cmt_toggle_stream
+caption=Comments\Add line comment, at line start
+method=cmt_add_line_1st
+;menu=0
+
+[item22]
+section=commands
+caption=Comments\Add line comment, at non-space char
+method=cmt_add_line_body
+;menu=0
+
+[item23]
+section=commands
+caption=Comments\Remove line comment
+method=cmt_del_line
 ;menu=0
 
 [item30]
@@ -30,11 +42,22 @@ method=_
 
 [item31]
 section=commands
+caption=Comments\Toggle stream comment
+method=cmt_toggle_stream
+;menu=0
+
+[item100]
+section=commands
+caption=Comments\-
+method=_
+
+[item110]
+section=commands
 caption=Comments\Config stream comments for lexer
 method=edit_strcomment_chars
 ;menu=0
 
-[item41]
+[item120]
 section=commands
 caption=Comments\Config
 method=dlg_config
