@@ -19,6 +19,9 @@ _       = get_translation(__file__)
 pass;                           LOG     = (-1==-1)  # Do or dont logging.
 
 class Command:
+    def __init__(self):
+        self.pair4lex = {}
+        #def __init__
     
     def edit_strcomment_chars(self):
         lex     = ed.get_prop(app.PROP_LEXER_CARET)
@@ -89,7 +92,7 @@ class Command:
         at_min_bd   = apx.get_opt('comment_equal_column'        , False)
         bUseFLn     = apx.get_opt('comment_full_line_if_no_sel' , True)
         bSkip       = apx.get_opt('comment_move_down'           , True)
-        save_s      = _('Line "at start" and "at non-space": try ot save non-space text column')
+        save_s      = _('Line "at start" and "at non-space": try to save non-space text column')
         save_h      = _('Try to replace blank(s) to save text:'
                         '\rUncommented lines:'
                         '\r····foo1'
@@ -339,10 +342,10 @@ class Command:
         '''
         if lex not in self.pair4lex:
             # Search lex-pair
-            def_lexs_json   = os.path.join(get_def_setting_dir()             , 'default_lexers.json')
+            def_lexs_json   = os.path.join(apx.get_def_setting_dir()         , 'default_lexers.json')
             usr_lexs_json   = os.path.join(app.app_path(app.APP_DIR_SETTINGS), 'user_lexers.json')
-            def_lexs        = _json_loads(open(def_lexs_json, encoding='utf8').read())
-            usr_lexs        = _json_loads(open(usr_lexs_json, encoding='utf8').read()) if os.path.exists(usr_lexs_json) else {"Comments":{}, "CommentsForLines":{}}
+            def_lexs        = apx._json_loads(open(def_lexs_json, encoding='utf8').read())
+            usr_lexs        = apx._json_loads(open(usr_lexs_json, encoding='utf8').read()) if os.path.exists(usr_lexs_json) else {"Comments":{}, "CommentsForLines":{}}
             only_ln        = False
             if False:pass
             elif lex in   usr_lexs["Comments"]:
