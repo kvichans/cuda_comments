@@ -1,6 +1,6 @@
 [info]
 title=Comments
-desc=Commands to toggle comments
+desc=Gives commands to comment/uncomment lines/blocks in source code
 type=cudatext-plugin
 subdir=cuda_comments
 homepage=https://github.com/kvichans/cuda_comments
