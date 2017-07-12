@@ -1,3 +1,6 @@
+0.8.5 (2017-07-12)
+fixed: don't use deprecated API
+
 0.8.4 (2017-06-05)
 fixed: optimized (by replace_lines api)
 

@@ -2,7 +2,7 @@
 Authors:
     Andrey Kvichansky    (kvichans on github.com)
 Version:
-    '0.8.4 2017-06-05'
+    '0.8.5 2017-07-12'
 ToDo: (see end of file)
 '''
 
@@ -15,6 +15,8 @@ from    .cd_plug_lib    import *
 
 # I18N
 _       = get_translation(__file__)
+
+FROM_API_VERSION= '1.0.187'     # LEXER_GET_PROP
 
 pass;                           LOG     = (-1==-1)  # Do or dont logging.
 
@@ -89,9 +91,10 @@ class Command:
                 cmt_type    '1st'   at begin of line
                             'bod'   at first not blank
         '''
-#       if not apx._check_API('1.0.108'):    return
+        if app.app_api_version()<FROM_API_VERSION:  return app.msg_status(_('Need update application'))
         lex         = ed_.get_prop(app.PROP_LEXER_CARET)
-        cmt_sgn     = app.lexer_proc(app.LEXER_GET_COMMENT, lex)
+        cmt_sgn     = app.lexer_proc(app.LEXER_GET_PROP,    lex)['c_line']     if lex else ''
+#       cmt_sgn     = app.lexer_proc(app.LEXER_GET_COMMENT, lex)
         pass;                  #LOG and log('cmt_type, lex, cmt_sgn={}', (cmt_type, lex, cmt_sgn))
         if not cmt_sgn:
             return app.msg_status(f(_('No line comment for lexer "{}"'), lex))
@@ -305,10 +308,13 @@ class Command:
                 end_sign      as '*/'
                 only_lines    True if each of *_sign must be whole line
         '''
+        if app.app_api_version()<FROM_API_VERSION:  return app.msg_status(_('Need update application'))
         if lex not in self.pair4lex:
             only_ln = False
-            pair1 = app.lexer_proc(app.LEXER_GET_COMMENT_STREAM, lex)
-            pair2 = app.lexer_proc(app.LEXER_GET_COMMENT_LINED, lex)
+            pair1 = app.lexer_proc(app.LEXER_GET_PROP, lex)['c_str']
+            pair2 = app.lexer_proc(app.LEXER_GET_PROP, lex)['c_lined']
+#           pair1 = app.lexer_proc(app.LEXER_GET_COMMENT_STREAM, lex)
+#           pair2 = app.lexer_proc(app.LEXER_GET_COMMENT_LINED, lex)
             if pair1 is not None: 
                 pair = pair1
             elif pair2 is not None: 
