@@ -1,3 +1,6 @@
+0.8.6 (2018-10-15)
+deleted: option comment_full_line_if_no_sel (in config dialog too)
+
 0.8.5 (2017-07-12)
 fixed: don't use deprecated API
 
