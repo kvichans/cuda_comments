@@ -290,17 +290,34 @@ class Command:
                 ,cNSel2, rNSel2)    = 0, rTx1, len(ed.get_text_line(rTx2-2)), rTx2-2
             elif do_uncmt:
                 # UnComment!
-                ed.delete(cTx2-len(end_sgn), rTx2, cTx2, rTx2)    #! true delete sequence
-                ed.delete(cTx1, rTx1, cTx1+len(bgn_sgn), rTx1)    #! true delete sequence
-                if False:pass
-                elif rTx1==rTx2:
-                    # sel into one row
+                if selTx.endswith(end_sgn):
+                    ed.delete(cTx2-len(end_sgn), rTx2, cTx2, rTx2)    #! true delete sequence
+                    ed.delete(cTx1, rTx1, cTx1+len(bgn_sgn), rTx1)    #! true delete sequence
+                    if False:pass
+                    elif rTx1==rTx2:
+                        # sel into one row
+                        (cNSel1, rNSel1
+                        ,cNSel2, rNSel2)    = cTx1, rTx1, cTx2-len(bgn_sgn)-len(end_sgn), rTx2
+                    elif rTx1!=rTx2:
+                        # sel ends on diff rows
+                        (cNSel1, rNSel1
+                        ,cNSel2, rNSel2)    = cTx1, rTx1, cTx2             -len(end_sgn), rTx2
+
+                elif bEntireLn1:
+                    s = ed.get_text_line(rTx1)
+                    if s.startswith(bgn_sgn):
+                        s = s[len(bgn_sgn):]
+                    if s.endswith(end_sgn):
+                        s = s[:-len(end_sgn)]
+                    ed.set_text_line(rTx1, s)
                     (cNSel1, rNSel1
-                    ,cNSel2, rNSel2)    = cTx1, rTx1, cTx2-len(bgn_sgn)-len(end_sgn), rTx2
-                elif rTx1!=rTx2:
-                    # sel ends on diff rows
+                    ,cNSel2, rNSel2) = (0, rTx1, 0, rTx2)
+
+                elif bEntireLn2:
+                    ed.delete(0, rTx2-1, 0, rTx2)
+                    ed.delete(0, rTx1, 0, rTx1+1)
                     (cNSel1, rNSel1
-                    ,cNSel2, rNSel2)    = cTx1, rTx1, cTx2             -len(end_sgn), rTx2
+                    ,cNSel2, rNSel2) = (0, rTx1, 0, rTx2-2)
 
             pass;              #LOG and log('bDrtSel, (cNSel1, rNSel1), (cNSel2, rNSel2)={}', (bDrtSel, (cNSel1, rNSel1), (cNSel2, rNSel2)))
             if bDrtSel:
