@@ -257,18 +257,21 @@ class Command:
                 ed.insert(0, rTx1,   bgn_sgn+'\n')    #! true insert sequence
                 (cNSel1, rNSel1
                 ,cNSel2, rNSel2)    = 0, rTx1, len(end_sgn), rTx2+2
+
             elif not do_uncmt:
                 # Comment!
                 if bEntireLn1:
                     s = ed.get_text_line(rTx1)
                     ed.set_text_line(rTx1, bgn_sgn+s+end_sgn)
                     (cNSel1, rNSel1
-                    ,cNSel2, rNSel2) = (cTx1, rTx1, cTx2, rTx2)
+                    ,cNSel2, rNSel2) = (0, rTx1, 0, rTx2)
+
                 elif bEntireLn2:
                     ed.insert(0, rTx2, end_sgn+'\n')
                     ed.insert(0, rTx1, bgn_sgn+'\n')
                     (cNSel1, rNSel1
-                    ,cNSel2, rNSel2) = (cTx1, rTx1, cTx2, rTx2+2)
+                    ,cNSel2, rNSel2) = (0, rTx1, 0, rTx2+2)
+
                 else:
                     ed.insert(cTx2, rTx2, end_sgn)        #! true insert sequence
                     ed.insert(cTx1, rTx1, bgn_sgn)        #! true insert sequence
@@ -288,6 +291,7 @@ class Command:
                 ed.delete(0, rTx1, 0, rTx1+1)    #! true delete sequence
                 (cNSel1, rNSel1
                 ,cNSel2, rNSel2)    = 0, rTx1, len(ed.get_text_line(rTx2-2)), rTx2-2
+
             elif do_uncmt:
                 # UnComment!
                 if selTx.endswith(end_sgn):
