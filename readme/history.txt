@@ -1,3 +1,6 @@
+0.8.7 (2019-05-30)
+fixed: keep selection
+
 0.8.6 (2018-10-15)
 deleted: option comment_full_line_if_no_sel (in config dialog too)
 
