@@ -200,25 +200,26 @@ class Command:
             #for rWrk
 
             # save caret position
-            for n, crt in enumerate(crts):
-                _x1, _y1, _x2, _y2 = crt
-                match = _y1 if _y2 == -1 else min(_y1, _y2)
+            if not save_bd_col:
+                for n, crt in enumerate(crts):
+                    _x1, _y1, _x2, _y2 = crt
+                    match = _y1 if _y2 == -1 else min(_y1, _y2)
 
-                if rWrk == match:
-                    _id = app.CARET_SET_ONE if n == 0 else app.CARET_ADD
-                    _caret_options = app.CARET_OPTION_NO_SCROLL if n == 0 else 0
-                    if do_uncmt:
-                        if pos_body <= max(_x1, _x2) or (_y2 != -1 and abs(_y2-y1) > 1):
-                            ed_.set_caret(max(_x1-cmt_len, -1), _y1,
-                                          max(_x2-cmt_len, -1), _y2, _id, _caret_options)
+                    if rWrk == match:
+                        _id = app.CARET_SET_ONE if n == 0 else app.CARET_ADD
+                        _caret_options = app.CARET_OPTION_NO_SCROLL if n == 0 else 0
+                        if do_uncmt:
+                            if pos_body <= max(_x1, _x2) or (_y2 != -1 and abs(_y2-y1) > 1):
+                                ed_.set_caret(max(_x1-cmt_len, -1), _y1,
+                                              max(_x2-cmt_len, -1), _y2, _id, _caret_options)
+                            else:
+                                ed_.set_caret(_x1, _y1, _x2, _y2, _id, _caret_options)
                         else:
-                            ed_.set_caret(_x1, _y1, _x2, _y2, _id, _caret_options)
-                    else:
-                        if pos_cmnt <= max(_x1, _x2) or (_y2 != -1 and abs(_y2-y1) > 1):
-                            ed_.set_caret(_x1+cmt_len, _y1,
-                                          _x2+cmt_len, _y2, _id, _caret_options)
-                        else:
-                            ed_.set_caret(_x1, _y1, _x2, _y2, _id, _caret_options)
+                            if pos_cmnt <= max(_x1, _x2) or (_y2 != -1 and abs(_y2-y1) > 1):
+                                ed_.set_caret(_x1+cmt_len, _y1,
+                                              _x2+cmt_len, _y2, _id, _caret_options)
+                            else:
+                                ed_.set_caret(_x1, _y1, _x2, _y2, _id, _caret_options)
 
         if bUseRepLns:
             pass;              #log('y1, y2, len(lines), lines={}',(y1, y2, len(lines), lines))
